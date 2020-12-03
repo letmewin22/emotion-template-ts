@@ -1,3 +1,6 @@
 /src/js/libs/*
 /.eslint
 webpack.config.js
+gulp
+build
+gulpfile.js

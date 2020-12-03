@@ -2,12 +2,12 @@ const fs = require('fs')
 const foldersName = require('../../foldersName')
 
 function javascript(name, capName, cb) {
-  const path = `${foldersName.sourceFolder}/js/core/renderers/${capName}.js`
+  const path = `${foldersName.sourceFolder}/js/core/renderers/${capName}.ts`
 
-  const jsPages = `${foldersName.sourceFolder}/js/core/renderers/index.js`
+  const jsPages = `${foldersName.sourceFolder}/js/core/renderers/index.ts`
   const jsContent = fs.readFileSync(jsPages, 'utf8')
 
-  const appjs = `${foldersName.sourceFolder}/js/app.js`
+  const appjs = `${foldersName.sourceFolder}/js/app.ts`
   const appjsContent = fs.readFileSync(appjs, 'utf8')
 
   const regex = /renderers: {(\w|\W){0,}},(\w|\W){0,}transitions/gm
@@ -27,10 +27,12 @@ function javascript(name, capName, cb) {
     toReplaceString = m[0].replace(/}/gm, `, ${capName}}`)
   }
 
-  const matched = appjsContent.match(regex)[0]
-    .replace(regex3, `,
+  const matched = appjsContent.match(regex)[0].replace(
+    regex3,
+    `,
     ${name}: ${capName}
-  },`)
+  },`,
+  )
 
   const replaceMatch = appjsContent.replace(regex, matched)
 
@@ -47,10 +49,12 @@ function javascript(name, capName, cb) {
 
 export default class ${capName} extends Highway.Renderer {
   
-  onEnterCompleted() {
+  onEnterCompleted(): void {
     console.log('Hello from ${capName}')
   }
-  onLeave() {}
+  onLeave(): void {
+    console.log('Leave from ${capName}')
+  }
 }`
 
   fs.appendFile(path, template, cb)

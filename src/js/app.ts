@@ -19,7 +19,7 @@ process.env.NODE_ENV === 'production' && cssWebP()
 const H: typeof Highway = new Highway.Core({
   renderers: {
     home: Home,
-    about: About,
+    about: About
   },
   transitions: {
     default: Basic,
