@@ -1,0 +1,15 @@
+* {
+  &::selection {
+    color: white;
+    background: $accent;
+  }
+}
+
+body {
+  @include reg;
+  color: $black;
+  line-height: 1.5em;
+  font-size: size(20, 16);
+  height: 100vh;
+  overflow: hidden;
+}

@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "outDir": "/src/js",
+    "target": "ES5",
+    "lib": ["DOM","DOM.Iterable","ES2015", "ESNext", "ScriptHost"],
+    "noImplicitAny": false,
+    // "strictNullChecks": true,
+    "noUnusedLocals": true, 
+    "sourceMap": true,
+    "module": "ES2020",
+    "allowJs": true,
+    "checkJs": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true, 
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true, 
+    "types": ["node"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "baseUrl": "src/js",
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@core/*": [
+        "./core/*"
+      ]
+    }
+  },
+  "baseUrl": "/src/js",
+  "bracketSpacing": false,
+  "include": [
+    "./**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.d.ts",
+    "build",
+    "webpack.cofing.js",
+    "./libs/*",
+    "gulp"
+  ]
+}

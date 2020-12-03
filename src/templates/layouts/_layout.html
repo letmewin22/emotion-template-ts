@@ -1,0 +1,20 @@
+{% include "../partials/_head.html" %}
+{% import "partials/_mixins.html" as mixins %}
+<body>
+  <noscript>
+    <div class="js-enable">Please enable JavaScript to view this website.</div>
+  </noscript>
+  <!-- BEGIN content -->
+  <div id="scroll-container" class="site-wrapper" data-router-wrapper>
+    <div data-router-view="{% if route %}{{ route }}{% else %}Template{% endif %}">
+      {% block content %}{% endblock %}
+      <!-- END content -->
+    </div>
+  </div>
+  <!-- BEGIN scripts -->
+    <script src="./js/vendors~app.e1607011765548.js"></script> 
+    <script src="./js/app.e1607011765548.js"></script>
+    <!-- END scripts -->
+
+</body>
+</html>
