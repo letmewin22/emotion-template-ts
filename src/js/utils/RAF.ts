@@ -25,5 +25,5 @@ const RAFInstance = new RAF()
 
 export const raf = {
   on: (cb: TFunc): void => RAFInstance.on(cb),
-  off: (cb: TFunc): void => RAFInstance.off(cb),
+  off: (cb: TFunc): void => RAFInstance.off(cb)
 }

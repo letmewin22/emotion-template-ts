@@ -9,7 +9,7 @@ function Bind(_: Any, _2: Any, descriptor: PD): PD {
     enumerable: false,
     get() {
       return original.bind(this)
-    },
+    }
   }
 }
 

@@ -22,8 +22,8 @@ const H: typeof Highway = new Highway.Core({
     about: About
   },
   transitions: {
-    default: Basic,
-  },
+    default: Basic
+  }
 })
 
 const hooks = new Hooks(H)

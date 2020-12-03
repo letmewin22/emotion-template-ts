@@ -100,7 +100,7 @@ export default class ScrollBar implements IScrollBar {
           overwrite: true,
           onComplete: () => {
             state.scrollbar = false
-          },
+          }
         })
       }
 
@@ -126,7 +126,7 @@ export default class ScrollBar implements IScrollBar {
     this.scrollbar.addEventListener('mousedown', mousedown)
 
     this.scrollbar.addEventListener('touchstart', touchstart, {
-      passive: false,
+      passive: false
     })
 
     const mouseUp = () => {
