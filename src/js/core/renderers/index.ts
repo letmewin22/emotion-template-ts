@@ -1,2 +1,7 @@
-export {default as Home} from './Home'
-export {default as About} from './About'
+export const home = (): Promise => {
+  return import(/* webpackChunkName: "home" */ './Home')
+}
+
+export const about = (): Promise => {
+  return import(/* webpackChunkName: "about" */ './About')
+}

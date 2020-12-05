@@ -11,7 +11,7 @@ function javascript(name, capName, cb) {
   const appjsContent = fs.readFileSync(appjs, 'utf8')
 
   const regex = /renderers: {(\w|\W){0,}},(\w|\W){0,}transitions/gm
-  const regex2 = /(import {Home).{1,}/gm
+  const regex2 = /(import {home).{1,}/gm
   const regex3 = /\s.{1,}},/gm
 
   let m
@@ -24,14 +24,14 @@ function javascript(name, capName, cb) {
     }
 
     // The result can be accessed through the `m`-variable.
-    toReplaceString = m[0].replace(/}/gm, `, ${capName}}`)
+    toReplaceString = m[0].replace(/}/gm, `, ${name}}`)
   }
 
   const matched = appjsContent.match(regex)[0].replace(
     regex3,
     `,
-    ${name}: ${capName}
-  },`,
+    ${name}
+  },`
   )
 
   const replaceMatch = appjsContent.replace(regex, matched)
@@ -40,8 +40,10 @@ function javascript(name, capName, cb) {
 
   fs.writeFile(
     jsPages,
-    `${jsContent} \nexport {default as ${capName}} from './${capName}'`,
-    cb,
+    `${jsContent} \nexport const ${name} = (): Promise => {
+      return import(/* webpackChunkName: "${name}" */ './${capName}')
+      }`,
+    cb
   )
   fs.writeFile(appjs, appJSOutput, cb)
 
