@@ -13,6 +13,7 @@ import {state} from './state'
 import bgWebP from './utils/bgWebP'
 import {resize} from './utils/Resize'
 import {winH} from './utils/winH'
+import * as serviceWorker from '../serviceWorker'
 
 process.env.NODE_ENV === 'production' && cssWebP()
 
@@ -54,7 +55,7 @@ hooks.useLoad(() => {
   void import(
     /* webpackChunkName: "smooth-scroll" */
     './components/SmoothScroll/SmoothScroll'
-  ).then((module) => {
+  ).then(module => {
     const SmoothScroll = module.default
     smoothScroll = new SmoothScroll('#scroll-container')
   })
@@ -68,3 +69,5 @@ hooks.useBoth(() => {
     link.href === location.href && link.classList.add('is-active')
   })
 })
+
+process.env.NODE_ENV === 'production' && serviceWorker.unregister()

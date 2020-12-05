@@ -4,7 +4,10 @@ const foldersName = require('../foldersName')
 function browserSync(bs) {
   bs.init({
     server: {
-      baseDir: './' + foldersName.projectFolder + '/'
+      baseDir: './' + foldersName.projectFolder + '/',
+      serveStaticOptions: {
+        extensions: ['html']
+      }
     },
     port: 8080,
     notify: false

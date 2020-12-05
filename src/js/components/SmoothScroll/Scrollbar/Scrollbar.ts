@@ -171,7 +171,7 @@ export default class ScrollBar implements IScrollBar {
 
   destroy(): void {
     document.querySelectorAll('.scrollbar').length > 0 &&
-      document.querySelectorAll('.scrollbar').forEach((el) => {
+      document.querySelectorAll('.scrollbar').forEach(el => {
         el.classList.add('hidden')
         el.parentNode.removeChild(el)
       })

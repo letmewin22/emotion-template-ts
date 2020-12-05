@@ -21,7 +21,7 @@ class Resize {
   }
 
   resizeHandler() {
-    this.cbArray.forEach((cb) => cb())
+    this.cbArray.forEach(cb => cb())
   }
 
   on(cb: TFunc): void {

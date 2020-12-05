@@ -59,7 +59,7 @@
     ],
     "constructor-super": 2,
     "arrow-spacing": 2,
-    "arrow-parens": "off",
+    "arrow-parens": [1, "as-needed", { "requireForBlockBody": false }],
     "comma-dangle": ["error", "never"],
     "require-jsdoc": "off",
     "no-extend-native": "off",
