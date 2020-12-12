@@ -12,13 +12,12 @@ import Bind from '@/utils/decorators/@Bind'
 
 type TOpts = {
   touchMultiplier: number
-  firefoxMultiplier: number,
-  preventTouch: boolean,
-  el: HTMLElement | null,
+  firefoxMultiplier: number
+  preventTouch: boolean
+  el: HTMLElement | null
 }
 
 export default class SmoothScroll {
-
   $el: HTMLElement | null
   targetY: number
   currentY: number

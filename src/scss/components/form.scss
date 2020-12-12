@@ -1,0 +1,92 @@
+.form {
+  margin: 0 auto;
+  margin-top: 60px;
+  width: 800px;
+  position: relative;
+  &.loading {
+    .form__btn-text {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .form__btn-loader {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+  margin-top: 60px;
+}
+
+.input {
+  background-color: transparent;
+  width: 100%;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  line-height: 1em;
+  font-size: inherit;
+  transition: border-color 0.3s ease;
+  &:focus,
+  &.js-focus {
+    border-color: $accent;
+    ~ .label {
+      transform: translateY(-20px);
+      font-size: 14px;
+      color: $accent;
+    }
+  }
+  &.error {
+    border-color: $red;
+    ~ .input-validate {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  line-height: 1em;
+  pointer-events: none;
+  transition: font-size 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.input-validate {
+  color: $red;
+  font-size: 14px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: black;
+  box-shadow: 0 0 0px 1000px white inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.form__btn {
+  float: right;
+  background-color: $accent;
+  color: white;
+  padding: 20px 40px;
+  position: relative;
+}
+
+.form__btn-text {
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}

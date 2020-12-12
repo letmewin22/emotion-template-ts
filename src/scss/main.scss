@@ -10,6 +10,29 @@ body {
   color: $black;
   line-height: 1.5em;
   font-size: size(20, 16);
-  height: 100vh;
+  height: var(--vh);
   overflow: hidden;
+  padding-left: 100px;
+}
+
+.e-fixed {
+  overflow: hidden;
+  overflow-x: auto;
+  .scrollbar:not(.block-scrollbar) {
+    display: none;
+  }
+  #scroll-container {
+    overflow: hidden;
+    overflow-x: auto;
+  }
+}
+
+#scroll-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  margin: auto;
 }

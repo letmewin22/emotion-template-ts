@@ -14,6 +14,7 @@ import bgWebP from './utils/bgWebP'
 import {resize} from './utils/Resize'
 import {winH} from './utils/winH'
 import * as serviceWorker from '../serviceWorker'
+import {Form} from './core/form/Form'
 
 process.env.NODE_ENV === 'production' && cssWebP()
 
@@ -64,6 +65,9 @@ hooks.useLoad(() => {
 const links = document.querySelectorAll('nav a')
 
 hooks.useBoth(() => {
+  new Form('#form', {
+    URL: 'http://localhost:8080/api/mail.php'
+  })
   links.forEach((link: HTMLLinkElement) => {
     link.classList.remove('is-active')
     link.href === location.href && link.classList.add('is-active')
