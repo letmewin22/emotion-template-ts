@@ -64,6 +64,17 @@ hooks.useLoad(() => {
 const links = document.querySelectorAll('nav a')
 
 hooks.useBoth(() => {
+  void import(
+    /* webpackChunkName: "form" */
+    '@emotionagency/form'
+  ).then(module => {
+    const Form = module.default
+    const form = new Form('#form', {
+      URL: 'http://localhost:8080/api/mail.php'
+    })
+    form.addFocus(0)
+  })
+
   links.forEach((link: HTMLLinkElement) => {
     link.classList.remove('is-active')
     link.href === location.href && link.classList.add('is-active')
