@@ -18,7 +18,7 @@
 .input-container {
   position: relative;
   width: 100%;
-  margin-top: 60px;
+  margin-top: 80px;
 }
 
 .input {
@@ -44,7 +44,16 @@
       opacity: 1;
       visibility: visible;
     }
+    ~ .label {
+      color: $red;
+    }
   }
+}
+
+.form__length-counter {
+  position: absolute;
+  right: 0;
+  font-size: 14px;
 }
 
 .label {
@@ -63,6 +72,20 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
+  position: absolute;
+}
+
+textarea {
+  border: none;
+  resize: none;
+  border-radius: 0;
+  line-height: normal;
+  overflow-y: hidden;
+  padding: 0px;
+  margin: 0;
+  min-height: 3rem;
+  outline: none;
+  padding-top: 10px;
 }
 
 input:-webkit-autofill,
@@ -81,12 +104,39 @@ select:-webkit-autofill:focus {
 
 .form__btn {
   float: right;
+  margin-top: 40px;
   background-color: $accent;
   color: white;
   padding: 20px 40px;
   position: relative;
+  transition: opacity 0.2s ease;
+  &:hover,
+  &:focus {
+    .btn__overlay {
+      transform: translateY(0%);
+      border-radius: 0%;
+    }
+  }
+}
+
+.btn__overlay {
+  background-color: white;
+  opacity: 0.2;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  transform: translateY(110%);
+  border-radius: 40%;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-radius 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .form__btn-text {
+  position: relative;
+  z-index: 1;
   transition: opacity 0.2s ease, visibility 0.2s ease;
 }

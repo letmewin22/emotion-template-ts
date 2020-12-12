@@ -7,31 +7,4 @@
 {% block content %}
 
   <h1>by emotion</h1>
-  <div class="form-wrapper">
-  <form id="form" data-error="Some error" class="form" novalidate>
-    <div class="input-container form__input-container">
-      <input data-validation="minlength(6)" type="text" class="input form__input" name="Имя" id="name">
-      <label class="label form__label" for="name">Имя</label>
-      <div class="input-validate form__input-validate">Поле не должно быть пустым</div>
-    </div>
-    <div class="input-container form__input-container">
-      <input data-validation="minlength(6) phone" type="tel" class="input form__input" name="Телефон" id="tel">
-      <label class="label form__label" for="tel">Телефон</label>
-      <div class="input-validate form__input-validate">Некорректный номер</div>
-    </div>
-    <div class="input-container form__input-container">
-      <input data-validation="email" type="email" class="input form__input" name="Email" id="email">
-      <label class="label form__label" for="email">Email</label>
-      <div class="input-validate form__input-validate">Неверный Email</div>
-    </div>
-    <button class="btn form__btn">
-      <span class="form__btn-text">Submit</span>
-      <span class="form__btn-loader">
-        <svg class="circular" viewBox="25 25 50 50">
-          <circle stroke="green" class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-        </svg>
-      </span>
-    </button>
-  </form>
-  </div>
 {% endblock %}
