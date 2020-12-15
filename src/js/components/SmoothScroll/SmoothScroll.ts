@@ -8,7 +8,6 @@ import {resize} from '@/utils/Resize'
 import mutationObserver from '@/utils/mutationObserver'
 import {raf} from '@/utils/RAF'
 import {isFixed} from '@/utils/isFixed'
-import Bind from '@/utils/decorators/@Bind'
 
 type TOpts = {
   touchMultiplier: number
@@ -42,10 +41,15 @@ export default class SmoothScroll {
     this.init()
   }
 
+  bounds(): void {
+    const methods = ['scroll', 'resize']
+    methods.forEach(fn => (this[fn] = this[fn].bind(this)))
+  }
+
   virtualScroll(): void {
     const vs = new VirtualScroll(this.opts)
 
-    vs.on((e: Event) => {
+    vs.on((e: WheelEvent) => {
       if (!isFixed()) {
         if (state.target === undefined) {
           this.targetY += e.deltaY
@@ -60,6 +64,7 @@ export default class SmoothScroll {
   }
 
   init(): void {
+    this.bounds()
     this.virtualScroll()
     resize.on(this.resize)
     mutationObserver(this.$el, this.resize)
@@ -68,7 +73,6 @@ export default class SmoothScroll {
     raf.on(this.scroll)
   }
 
-  @Bind
   scroll(): void {
     const s = state.scrollbar
     const dif = Math.abs(Math.round(this.targetY) - Math.round(this.currentY))
@@ -86,7 +90,6 @@ export default class SmoothScroll {
     }
   }
 
-  @Bind
   resize(): void {
     this.height = this.$el.getBoundingClientRect().height
     this.max = (this.height - window.innerHeight) * -1
@@ -101,3 +104,5 @@ export default class SmoothScroll {
 
   // destroy(): void {}
 }
+
+export type TSmoothScroll = typeof SmoothScroll.prototype

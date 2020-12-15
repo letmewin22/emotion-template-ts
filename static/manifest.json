@@ -1,6 +1,6 @@
 {
-  "short_name": "Roman Stets",
-  "name": "Roman Stets",
+  "short_name": "",
+  "name": "",
   "icons": [
     {
       "src": "img/favicons/favicon.ico",
@@ -56,9 +56,9 @@
       "type": "image/png"
     }
   ],
-  "categories": ["web", "it", "copywriting"],
+  "categories": [],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#2E54B7",
-  "background_color": "#F1F1F1"
+  "theme_color": "#a03adb",
+  "background_color": "#131116"
 }
