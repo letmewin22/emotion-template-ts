@@ -8,7 +8,7 @@ import {state} from '@/state'
 
 import {TSmoothScroll} from '@/components/SmoothScroll/SmoothScroll'
 import bgWebP from '@/utils/bgWebP'
-import {resize} from '@/utils/Resize'
+import {resize} from '@emotionagency/utils'
 import {winH} from '@/utils/winH'
 
 export const render = <T>(H: T): void => {
@@ -33,34 +33,31 @@ export const render = <T>(H: T): void => {
     smoothScroll && smoothScroll.reset()
   })
 
-  hooks.useLoad(() => {
+  hooks.useLoad(async() => {
     resize.on(winH)
 
     // const navbarPos = new NavbarPos()
     // navbarPos.init()
 
-    void import(
-      /* webpackChunkName: "smooth-scroll" */
+    const {SmoothScroll} = await import(
+      /* webpackChunkName: "smoothscroll" */
       '@/components/SmoothScroll/SmoothScroll'
-    ).then(module => {
-      const SmoothScroll = module.default
-      smoothScroll = new SmoothScroll('#scroll-container')
-    })
+    )
+    smoothScroll = new SmoothScroll()
   })
 
   const links = document.querySelectorAll('nav a')
 
-  hooks.useBoth(() => {
-    void import(
+  hooks.useBoth(async() => {
+    const {default: Form} = await import(
       /* webpackChunkName: "form" */
       '@emotionagency/form'
-    ).then(module => {
-      const Form = module.default
-      const form = new Form('#form', {
-        URL: 'http://localhost:8080/api/mail.php'
-      })
-      form.addFocus(0)
+    )
+
+    const form = new Form('#form', {
+      URL: 'http://localhost:8080/api/mail.php'
     })
+    form.addFocus(0)
 
     links.forEach((link: HTMLLinkElement) => {
       link.classList.remove('is-active')

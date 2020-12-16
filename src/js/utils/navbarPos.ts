@@ -1,6 +1,6 @@
-import {state} from '../state'
+import {state} from '@/components/SmoothScroll/state'
 import {isFixed} from './isFixed'
-import {raf} from './RAF'
+import {raf} from '@emotionagency/utils'
 
 export default class NavbarPos {
   mouseFunc: (e: any) => any
@@ -12,18 +12,18 @@ export default class NavbarPos {
     }
   }
 
-  init() {
+  init(): void {
     this.scrollPos = 0
     raf.on(this.scrollNav.bind(this))
   }
 
-  mouseHandler(e: any) {
+  mouseHandler(e: MouseEvent): void {
     if (e.screenY <= document.querySelector('.navbar').scrollHeight + 100) {
       document.body.classList.remove('nav-hidden')
     } else document.body.classList.add('nav-hidden')
   }
 
-  scrollNav() {
+  scrollNav(): void {
     // const b = document.getElementById('scroller').getBoundingClientRect()
     const b = {
       top: -state.scrolled
@@ -31,13 +31,11 @@ export default class NavbarPos {
     if (b.top > this.scrollPos || isFixed()) {
       document.body.classList.remove('nav-hidden')
       document.removeEventListener('mousemove', this.mouseFunc)
-
     } else if (b.top < this.scrollPos && this.scrollPos <= 0) {
       document.body.classList.add('nav-hidden')
       document.querySelector('.navbar').classList.remove('remove-bg')
 
       document.addEventListener('mousemove', this.mouseFunc)
-
     } else if (this.scrollPos === 0) {
       document.querySelector('.navbar').classList.add('remove-bg')
     }
@@ -48,7 +46,7 @@ export default class NavbarPos {
     this.scrollPos = -state.scrolled
   }
 
-  destroy() {
+  destroy(): void {
     this.scrollPos = 0
     raf.off(this.scrollNav.bind(this))
   }

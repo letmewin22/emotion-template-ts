@@ -1,108 +1,107 @@
 import VirtualScroll from 'virtual-scroll'
+import {raf, resize} from '@emotionagency/utils'
 
-import {state} from '@/state'
-import {clamp, lerp} from '@/utils/math'
 import ScrollBar from './Scrollbar/ScrollBar'
-import {run} from './run'
-import {resize} from '@/utils/Resize'
-import mutationObserver from '@/utils/mutationObserver'
-import {raf} from '@/utils/RAF'
+import {state} from './state'
+
+import {clamp, lerp} from '@/utils/math'
+import {getOpts, IOpts} from './opts'
 import {isFixed} from '@/utils/isFixed'
 
-type TOpts = {
-  touchMultiplier: number
-  firefoxMultiplier: number
-  preventTouch: boolean
-  el: HTMLElement | null
-}
-
-export default class SmoothScroll {
-  $el: HTMLElement | null
-  targetY: number
-  currentY: number
-  ease: number
-  opts: TOpts
-  height: number
+export class SmoothScroll {
   max: number
+  vs: typeof VirtualScroll
+  scrollbar: typeof ScrollBar.prototype
 
-  constructor($el: string) {
-    this.$el = document.querySelector($el)
-    this.targetY = 0
-    this.currentY = 0
-    this.ease = 0.08
+  current = 0
+  min = 0
 
-    this.opts = {
-      touchMultiplier: 3.8,
-      firefoxMultiplier: 40,
-      preventTouch: true,
-      el: document.querySelector('#scroll-container')
-    }
-
+  constructor(protected opts?: IOpts) {
+    this.opts = getOpts(opts)
     this.init()
   }
 
   bounds(): void {
-    const methods = ['scroll', 'resize']
+    const methods = ['resize', 'animate']
     methods.forEach(fn => (this[fn] = this[fn].bind(this)))
-  }
-
-  virtualScroll(): void {
-    const vs = new VirtualScroll(this.opts)
-
-    vs.on((e: WheelEvent) => {
-      if (!isFixed()) {
-        if (state.target === undefined) {
-          this.targetY += e.deltaY
-          state.target = e.deltaY
-        } else {
-          state.target += e.deltaY
-          state.target = clamp(state.target, 0, this.max)
-          this.targetY = state.target
-        }
-      }
-    })
   }
 
   init(): void {
     this.bounds()
-    this.virtualScroll()
-    resize.on(this.resize)
-    mutationObserver(this.$el, this.resize)
 
-    new ScrollBar()
-    raf.on(this.scroll)
+    resize.on(this.resize)
+
+    state.target = 0
+    this.max = this.maxValue
+    this.scroll()
+
+    raf.on(this.animate)
+    this.scrollbar = this.opts.scrollbar && new ScrollBar()
+  }
+
+  resize(): void {
+    if (!this.opts.mobile && window.innerWidth <= this.opts.breakpoint) {
+      this.destroy()
+    }
+  }
+
+  get maxValue(): number {
+    return this.opts.el.scrollHeight - window.innerHeight
   }
 
   scroll(): void {
+    this.vs = new VirtualScroll({...this.opts})
+
+    this.vs.on((e: WheelEvent) => {
+      if (this.canScroll) {
+        state.target -= e.deltaY * this.opts.stepSize
+        state.target = clamp(state.target, this.min, this.max)
+      }
+    })
+  }
+
+  get canScroll(): boolean {
+    return !isFixed() && this.opts.el.scrollHeight > window.innerHeight
+  }
+
+  detectScrolling(): void {
     const s = state.scrollbar
-    const dif = Math.abs(Math.round(this.targetY) - Math.round(this.currentY))
+    const dif = Math.abs(Math.round(state.target) - Math.round(this.current))
+
     if (dif >= 1 || s) {
       state.scrolling = true
     } else {
       state.scrolling = false
     }
-
-    if (state.scrolling) {
-      this.targetY = state.target
-      this.currentY = lerp(this.currentY, this.targetY, this.ease)
-      this.currentY = Math.round(this.currentY * 100) / 100
-      run(this.$el, this.currentY)
-    }
   }
 
-  resize(): void {
-    this.height = this.$el.getBoundingClientRect().height
-    this.max = (this.height - window.innerHeight) * -1
+  animate(): void {
+    this.detectScrolling()
+
+    if (state.scrolling) {
+      this.max = this.maxValue
+      this.current = lerp(this.current, state.target, this.opts.friction)
+      this.current = Math.round(this.current * 100) / 100
+      this.opts.el.scrollTop = this.current
+      state.scrolled = this.current
+    }
   }
 
   reset(): void {
     state.target = 0
-    this.targetY = 0
-    this.currentY = 0
-    run(this.$el, 0)
+    this.current = 0
+    this.opts.el.scrollTop = 0
   }
 
-  // destroy(): void {}
+  destroy(): void {
+    state.target = 0
+    state.scrolled = 0
+    state.scrolling = false
+    raf.off(this.animate)
+    resize.off(this.animate)
+    this.vs.destroy()
+    this.scrollbar.destroy()
+  }
 }
 
 export type TSmoothScroll = typeof SmoothScroll.prototype
