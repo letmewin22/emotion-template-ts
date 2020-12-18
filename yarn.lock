@@ -5433,7 +5433,7 @@ gulp-ttf2woff@^1.1.1:
     readable-stream "^2.0.1"
     ttf2woff "^2.0.1"
 
-gulp-util@>=2.2.0, gulp-util@^3.0.6, gulp-util@^3.0.7:
+gulp-util@>=2.2.0, gulp-util@^3.0.6:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/gulp-util/-/gulp-util-3.0.8.tgz#0054e1e744502e27c04c187c3ecc505dd54bbb4f"
   integrity sha1-AFTh50RQLifATBh8PsxQXdVLu08=
@@ -5456,14 +5456,6 @@ gulp-util@>=2.2.0, gulp-util@^3.0.6, gulp-util@^3.0.7:
     replace-ext "0.0.1"
     through2 "^2.0.0"
     vinyl "^0.5.0"
-
-gulp-webp-html@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/gulp-webp-html/-/gulp-webp-html-1.0.2.tgz#091032d9b04fce1d56880d7ba5e08e7ae85c57ec"
-  integrity sha1-CRAy2bBPzh1WiA17peCOeuhcV+w=
-  dependencies:
-    gulp-util "^3.0.7"
-    through2 "^2.0.1"
 
 gulp-webp@^4.0.1:
   version "4.0.1"

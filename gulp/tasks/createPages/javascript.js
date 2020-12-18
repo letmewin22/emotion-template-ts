@@ -40,7 +40,7 @@ function javascript(name, capName, cb) {
 
   fs.writeFile(
     jsPages,
-    `${jsContent} \nexport const ${name} = (): Promise => {
+    `${jsContent} \nexport const ${name} = (): Promise<any> => {
       return import(/* webpackChunkName: "${name}" */ './${capName}')
       }`,
     cb
