@@ -15,7 +15,6 @@ const fonts = require('./gulp/tasks/fonts').bind(null, browsersync)
 const video = require('./gulp/tasks/video').bind(null, browsersync)
 const audio = require('./gulp/tasks/audio').bind(null, browsersync)
 
-const svgSprites = require('./gulp/tasks/svgSprite')
 const otfConvert = require('./gulp/tasks/otfConvert')
 const fontsInclude = require('./gulp/tasks/fontsInclude')
 const cp = require('./gulp/tasks/createPages/cp')
@@ -33,8 +32,6 @@ function wpDev(done) {
 }
 
 otfConvert()
-
-svgSprites()
 
 function watchFiles() {
   gulp.watch([config.watch.css], css)
