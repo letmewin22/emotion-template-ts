@@ -33,7 +33,7 @@ export const render = <T>(H: T): void => {
     smoothScroll && smoothScroll.reset()
   })
 
-  hooks.useLoad(async() => {
+  hooks.useLoad(async () => {
     resize.on(winH)
 
     // const navbarPos = new NavbarPos()
@@ -41,14 +41,14 @@ export const render = <T>(H: T): void => {
 
     const {SmoothScroll} = await import(
       /* webpackChunkName: "smoothscroll" */
-      '@/components/SmoothScroll/SmoothScroll'
+      '@emotionagency/smoothscroll'
     )
     smoothScroll = new SmoothScroll()
   })
 
   const links = document.querySelectorAll('nav a')
 
-  hooks.useBoth(async() => {
+  hooks.useBoth(async () => {
     const {default: Form} = await import(
       /* webpackChunkName: "form" */
       '@emotionagency/form'
