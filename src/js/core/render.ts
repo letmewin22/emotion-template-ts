@@ -6,7 +6,6 @@ import moveEl from '@/libs/moveEl'
 import Hooks from '@core/Hooks'
 import {state} from '@/state'
 
-import {TSmoothScroll} from '@/components/SmoothScroll/SmoothScroll'
 import bgWebP from '@/utils/bgWebP'
 import {resize} from '@emotionagency/utils'
 import {winH} from '@/utils/winH'
@@ -24,7 +23,7 @@ export const render = <T>(H: T): void => {
     state.isLoaded = true
   })
 
-  let smoothScroll: TSmoothScroll
+  let smoothScroll
 
   hooks.useBothStart(() => {
     bgWebP()
@@ -33,7 +32,7 @@ export const render = <T>(H: T): void => {
     smoothScroll && smoothScroll.reset()
   })
 
-  hooks.useLoad(async () => {
+  hooks.useLoad(async() => {
     resize.on(winH)
 
     // const navbarPos = new NavbarPos()
@@ -48,7 +47,7 @@ export const render = <T>(H: T): void => {
 
   const links = document.querySelectorAll('nav a')
 
-  hooks.useBoth(async () => {
+  hooks.useBoth(async() => {
     const {default: Form} = await import(
       /* webpackChunkName: "form" */
       '@emotionagency/form'
